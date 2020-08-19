@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="text-left">
-                    <h5>Jadwal</h5>
+                    <h5>Penjadwalan</h5>
                 </div>
             </div>
             <div class="col-md-6">
@@ -19,6 +19,8 @@
                 <thead>
                 <tr>
                     <th style="width: 10px;">No</th>
+                    <th>Tanggal</th>
+                    <th>Jam</th>
                     <th>Wilayah</th>
                     <th>Jadwal</th>
                     <th style="width: 160px; text-align: center;">Action</th>
@@ -27,6 +29,8 @@
                 <tfoot>
                 <tr>
                     <th>No</th>
+                    <th>Tanggal</th>
+                    <th>Jam</th>
                     <th>Wilayah</th>
                     <th>Jadwal</th>
                     <th style="width: 160px; text-align: center;">Action</th>
@@ -34,16 +38,18 @@
                 </tfoot>
                 <tbody>
                     <?php
-                        $data = mysqli_query($con,"SELECT * FROM jadwal");
+                        $data = mysqli_query($con,"SELECT * FROM penjadwalan a LEFT JOIN jadwal b ON a.id_jadwal=b.id_jadwal");
                         foreach($data as $i => $a):
                     ?>
                 <tr>
                     <td style="text-align: center;"><?= $i+1 ?></td>
+                    <td><?= $a['tanggal'] ?></td>
+                    <td><?= $a['jam'] ?></td>
                     <td><?= $a['wilayah'] ?></td>
                     <td><?= $a['jadwal'] ?></td>
                     <td class="text-center">
-                        <button type="button" onclick="edit('<?= $a['id_jadwal'] ?>')" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                        <a href="?page=jadwal/hapus&id=<?= $a['id_jadwal'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        <button type="button" onclick="edit('<?= $a['id_penjadwalan'] ?>')" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                        <a href="?page=penjadwalan/hapus&id=<?= $a['id_penjadwalan'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
                 <?php endforeach ?>
@@ -54,25 +60,37 @@
 </div>
 
 <!-- The Modal -->
-<div class="modal" id="jadwal">
+<div class="modal" id="penjadwalan">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <div class="modal-body">
         <div class="card">
             <div class="card-header">
-                Data Jadwal
+                Data Penjadwalan
             </div>
             <div class="card-body">
-                <form action="?page=jadwal/action" method="POST">
+                <form action="?page=penjadwalan/action" method="POST">
                     <div class="form-group">
-                        <label for="">Wilayah</label>
-                        <input type="text" class="form-control" name="wilayah" id="wilayah" placeholder="Input Wilayah">
+                        <label for="">Tanggal</label>
+                        <input type="date" class="form-control" name="tanggal" id="tanggal">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Jam</label>
+                        <input type="text" class="form-control" name="jam" id="jam">
                     </div>
                     <div class="form-group">
                         <label for="">Jadwal</label>
-                        <input type="text" class="form-control" name="jadwal" id="jadwals" placeholder="Input Jadwal">
-                        <input type="hidden" class="form-control" id="id_jadwal" name="id_jadwal">
+                        <select name="jadwal" id="jadwal" class="form-control">
+                            <option value="">-PILIH JADWAL-</option>
+                            <?php
+                                $data = mysqli_query($con,"SELECT * FROM jadwal");
+                                foreach($data as $a):
+                            ?>
+                            <option value="<?= $a['id_jadwal'] ?>"><?= $a['wilayah'] ?>-<?= $a['jadwal'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <input type="hidden" class="form-control" id="id_penjadwalan" name="id_penjadwalan">
                     </div>
                     <div align="right">
                         <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
@@ -89,22 +107,23 @@
 <script>
     function jadwal()
     {
-        $('#jadwal').modal()
+        $('#penjadwalan').modal()
     }
 
     function edit(id)
     {
         $.ajax({
-            url: 'jadwal/jadwal.php',
+            url: 'penjadwalan/penjadwalan.php',
             type: 'POST',
-            data: {'id_jadwal':id},
+            data: {'id_penjadwalan':id},
             dataType: 'JSON',
             success: function(data)
             {
-                $('#jadwals').val(data.jadwal)
-                $('#wilayah').val(data.wilayah)
-                $('#id_jadwal').val(data.id_jadwal)
-                $('#jadwal').modal()
+                $('#jadwal').val(data.id_jadwal)
+                $('#tanggal').val(data.tanggal)
+                $('#jam').val(data.jam)
+                $('#id_penjadwalan').val(data.id_penjadwalan)
+                $('#penjadwalan').modal()
             }
         })
     }

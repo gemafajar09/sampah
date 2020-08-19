@@ -30,11 +30,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="halaman.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-bus"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Palikasi Penjadwan Sampah</div>
+        <div class="sidebar-brand-text mx-3">Aplikasi Penjadwan Sampah</div>
       </a>
 
       <!-- Divider -->
@@ -42,11 +42,19 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="halaman.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?page=user/index">
+          <i class="fas fa-fw fa-user"></i>
+          <span>User</span>
+        </a>
+      </li>
+      
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="?page=jadwal/index">
@@ -57,15 +65,7 @@
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="fas fa-fw fa-bus"></i>
-          <span>Pengangkutan</span>
-        </a>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="?page=penjadwalan/index">
           <i class="fas fa-fw fa-clock"></i>
           <span>Penjadwalan</span>
         </a>
@@ -73,7 +73,15 @@
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="?page=pengangkutan/index">
+          <i class="fas fa-fw fa-bus"></i>
+          <span>Pengangkutan</span>
+        </a>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?page=pengaduan/index">
           <i class="fas fa-fw fa-comment"></i>
           <span>Pengaduan</span>
         </a>
